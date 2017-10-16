@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceAllocation", "ResourceAllocation\ResourceAllocation.csproj", "{F94EB45F-3B79-477D-9FF4-5D694C5232D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllocationService", "AllocationService\AllocationService.csproj", "{A8748681-4E1E-4BDB-A595-E50048293594}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{307B7E10-26C0-4EBD-9999-5AD4E2752253}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{F94EB45F-3B79-477D-9FF4-5D694C5232D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F94EB45F-3B79-477D-9FF4-5D694C5232D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F94EB45F-3B79-477D-9FF4-5D694C5232D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8748681-4E1E-4BDB-A595-E50048293594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8748681-4E1E-4BDB-A595-E50048293594}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8748681-4E1E-4BDB-A595-E50048293594}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8748681-4E1E-4BDB-A595-E50048293594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{307B7E10-26C0-4EBD-9999-5AD4E2752253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{307B7E10-26C0-4EBD-9999-5AD4E2752253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{307B7E10-26C0-4EBD-9999-5AD4E2752253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{307B7E10-26C0-4EBD-9999-5AD4E2752253}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AllocationService;
 
 namespace ResourceAllocation
 {
@@ -10,6 +6,9 @@ namespace ResourceAllocation
     {
         static void Main(string[] args)
         {
+            var x = FileReader.ReadFile("dupa");
+            var g = GraphExtender.ConvertToGraph(x);
+            
         }
     }
 }
