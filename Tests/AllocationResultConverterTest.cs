@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using AllocationService;
 using ASD.Graphs;
 using FluentAssertions;
@@ -25,7 +21,7 @@ namespace Tests
 
             for (int i = 1; i < g.VerticesCount; i++)
             {
-                g.AddEdge(i - 1, i, 1);
+                g.AddEdge(i - 1, i);
             }
 
             //act
@@ -44,19 +40,19 @@ namespace Tests
             var g = new AdjacencyMatrixGraph(true, 11);
 
             g.AddEdge(0, 1, 2);
-            g.AddEdge(0, 2, 1);
+            g.AddEdge(0, 2);
 
-            g.AddEdge(2, 6, 1);
-            g.AddEdge(1, 4, 1);
-            g.AddEdge(1, 3, 1);
+            g.AddEdge(2, 6);
+            g.AddEdge(1, 4);
+            g.AddEdge(1, 3);
 
-            g.AddEdge(6, 9, 1);
-            g.AddEdge(4, 8, 1);
-            g.AddEdge(3, 7, 1);
+            g.AddEdge(6, 9);
+            g.AddEdge(4, 8);
+            g.AddEdge(3, 7);
 
-            g.AddEdge(9, 10, 1);
-            g.AddEdge(8, 10, 1);
-            g.AddEdge(7, 10, 1);
+            g.AddEdge(9, 10);
+            g.AddEdge(8, 10);
+            g.AddEdge(7, 10);
 
 
             //act
@@ -81,15 +77,15 @@ namespace Tests
             g.AddEdge(1, 2, 2);
             g.AddEdge(1, 3, 2);
 
-            g.AddEdge(2, 4, 1);
-            g.AddEdge(2, 5, 1);
-            g.AddEdge(3, 6, 1);
-            g.AddEdge(3, 7, 1);
+            g.AddEdge(2, 4);
+            g.AddEdge(2, 5);
+            g.AddEdge(3, 6);
+            g.AddEdge(3, 7);
 
-            g.AddEdge(7, 8, 1);
-            g.AddEdge(6, 8, 1);
-            g.AddEdge(5, 8, 1);
-            g.AddEdge(4, 8, 1);
+            g.AddEdge(7, 8);
+            g.AddEdge(6, 8);
+            g.AddEdge(5, 8);
+            g.AddEdge(4, 8);
 
 
             //act

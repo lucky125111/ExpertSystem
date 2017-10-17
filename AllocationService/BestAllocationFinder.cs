@@ -15,7 +15,7 @@ namespace AllocationService
 
         public AllocationResult CalculateBestAllocation()
         {
-            var resGraph = FlowGraph.IsolatedVerticesGraph();
+            Graph resGraph;
 
             FlowGraph.FordFulkersonDinicMaxFlow(0, FlowGraph.VerticesCount - 1, out resGraph, MaxFlowGraphExtender.BFPath);
 
