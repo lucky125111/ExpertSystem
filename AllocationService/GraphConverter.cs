@@ -42,7 +42,7 @@ namespace AllocationService
 
             for (int i = 0; i < expertProjectInformation.ExpertCount; i++)
             {
-                g.AddEdge(expertProjectInformation.ProjectCount + expertProjectInformation.SkillCount + 1 + i, expertProjectInformation.GetVerticesCount() - 1, 1);
+                g.AddEdge(expertProjectInformation.ProjectCount + expertProjectInformation.SkillCount + 1 + i, expertProjectInformation.GetVerticesCount() - 1);
             }
 
             return g;
@@ -52,7 +52,7 @@ namespace AllocationService
         {
             var res = new AllocationResult();
 
-            for (int i = 1; i <= projectCount; i++)     //lecimy po wszystkich projektach
+            for (int i = 1; i <= projectCount; i++)     //lecimy po wszystkich projektach (wierzcholkach ktore sa projektami)
             {
                 foreach (var e in g.OutEdges(i))
                 {
