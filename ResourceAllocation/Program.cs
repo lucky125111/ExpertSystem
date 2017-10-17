@@ -7,7 +7,7 @@ namespace ResourceAllocation
         static void Main(string[] args)
         {
             var x = FileReader.ReadFile("dupa");
-            var g = GraphExtender.ConvertToGraph(x);
+            var g = GraphConverter.ExpertProjectInformationToGraph(x);
             
         }
     }

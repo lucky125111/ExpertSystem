@@ -33,7 +33,7 @@ namespace Tests
             };
 
             //act
-            var g = GraphExtender.ConvertToGraph(x);
+            var g = GraphConverter.ExpertProjectInformationToGraph(x);
 
             //assert
 
@@ -107,7 +107,7 @@ namespace Tests
             };
 
             //act
-            var g = GraphExtender.ConvertToGraph(x);
+            var g = GraphConverter.ExpertProjectInformationToGraph(x);
 
             //assert
 
@@ -182,7 +182,7 @@ namespace Tests
             };
 
             //act
-            var g = GraphExtender.ConvertToGraph(x);
+            var g = GraphConverter.ExpertProjectInformationToGraph(x);
 
             //assert
 
