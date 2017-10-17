@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllocationResultConverterTest.cs" />
+    <Compile Include="CalculateMaxFlowTest.cs" />
     <Compile Include="GraphCreatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

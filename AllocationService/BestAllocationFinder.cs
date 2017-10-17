@@ -13,14 +13,19 @@ namespace AllocationService
             FlowGraph = GraphConverter.ExpertProjectInformationToGraph(expertProjectInformation);
         }
 
-        public AllocationResult CalculateBestAllocation()
+        public Graph CalculateMaxFlow()
         {
             Graph resGraph;
 
-            FlowGraph.FordFulkersonDinicMaxFlow(0, FlowGraph.VerticesCount - 1, out resGraph, MaxFlowGraphExtender.BFPath);
+            //narazie na cele testow samego pomyslu kozystamy z gotowego rozwiazania
+            FlowGraph.FordFulkersonDinicMaxFlow(0, FlowGraph.VerticesCount - 1, out resGraph, MaxFlowGraphExtender.MaxFlowPath);
 
-            //convert graph to AllocationResult
-            //to jest tak naprawde rozparsowanie krawedzi
+            return resGraph;
+        }
+
+        public AllocationResult CalculateBestAllocation()
+        {
+            var resGraph = CalculateMaxFlow();
 
             var res = resGraph.GraphToAllocationResult(ExpertProjectInformation.ProjectCount, ExpertProjectInformation.SkillCount, ExpertProjectInformation.ExpertCount);
 
