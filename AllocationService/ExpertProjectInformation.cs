@@ -10,6 +10,11 @@ namespace AllocationService
         public List<List<int>> ExpertSkills { get; set; }            //tablice o wymiarze ExpertCount x SkillCount
         public List<List<int>> ProjectRequirements { get; set; }     //tablice o wymiarze ProjectCount x SkillCount
 
+        public ExpertProjectInformation()
+        {
+            ExpertSkills = new List<List<int>>();
+            ProjectRequirements = new List<List<int>>();
+        }
         public int GetVerticesCount()
         {
             //graf przeplywu ma wierzcholki w liczbie ExpertCount + ProjectCount + SkillCount + jednen jako superpozycja ujscia + jeden jako superpozycja wejscia
