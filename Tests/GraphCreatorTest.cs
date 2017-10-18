@@ -5,6 +5,7 @@ using Xunit;
 
 namespace Tests
 {
+    //Ta sa bardziej takie testy na popatrzenie jak dziala, jeszcze nie wiem jak to zakodzic
     public class GraphCreatorTest
     {
         [Fact]
@@ -37,8 +38,8 @@ namespace Tests
 
             //assert
 
-            GraphExport ge = new GraphExport();
-            ge.Export(g);
+            //GraphExport ge = new GraphExport();
+            //ge.Export(g);
         }
 
         [Fact]
@@ -112,8 +113,8 @@ namespace Tests
 
             //assert
 
-            GraphExport ge = new GraphExport();
-            ge.Export(g);
+            //GraphExport ge = new GraphExport();
+            //ge.Export(g);
         }
 
         [Fact]
@@ -187,8 +188,8 @@ namespace Tests
 
             //assert
 
-            GraphExport ge = new GraphExport();
-            ge.Export(g);
+            //GraphExport ge = new GraphExport();
+            //ge.Export(g);
         }
     }
 }
