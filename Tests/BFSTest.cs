@@ -13,14 +13,14 @@ namespace Tests
             //arange
             var g = new AdjacencyMatrixGraph(true, 4);
 
-            g.AddEdge(0,3,1);
-            g.AddEdge(0,1,1);
-            g.AddEdge(1,2,1);
-            g.AddEdge(2,3,1);
+            g.AddEdge(0,3,0);
+            g.AddEdge(0,1,0);
+            g.AddEdge(1,2,0);
+            g.AddEdge(2,3,0);
 
             var test = new BestAllocationFinder(g);
             //act
-            var prev = test.BFS(0, 3);
+            var prev = test.BFS(0, 3, g);
 
             //assert
 
@@ -33,14 +33,15 @@ namespace Tests
             //arange
             var g = new AdjacencyMatrixGraph(true, 4);
 
-            g.AddEdge(3, 0, 1);
-            g.AddEdge(0, 1, 1);
-            g.AddEdge(1, 2, 1);
-            g.AddEdge(2, 3, 1);
+            g.AddEdge(3, 0);
+            g.AddEdge(0, 1);
+            g.AddEdge(1, 2);
+            g.AddEdge(2, 3);
 
             var test = new BestAllocationFinder(g);
+
             //act
-            var prev = test.BFS(0, 3);
+            var prev = test.BFS(0, 3, g);
 
             //assert
             prev.ShouldAllBeEquivalentTo(new int[] { -1, 0, 1, 2});
@@ -49,7 +50,6 @@ namespace Tests
         [Fact]
         public void BFSSearchTest_GraphInExpertSystem_Simple()
         {
-            //arange
             //arrange
             var g = new AdjacencyMatrixGraph(true, 11);
 
@@ -73,11 +73,10 @@ namespace Tests
             g.AddEdge(8, 10);
             g.AddEdge(9, 10);
 
-            //act
             var test = new BestAllocationFinder(g);
 
             ////act
-            var prev = test.BFS(0, 3);
+            var prev = test.BFS(0, 3, g);
 
             //assert
             prev.ShouldAllBeEquivalentTo(new int[] { -1, 0, 0, 0, 3, 2, 1, -2, 6, 6, 8 });

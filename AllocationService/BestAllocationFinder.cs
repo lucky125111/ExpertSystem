@@ -21,7 +21,7 @@ namespace AllocationService
             FlowGraph = g;
         }
 
-        public int[] BFS(int start, int finish)
+        public int[] BFS(int start, int finish, Graph g)
         {
             //uwaga techniczna
             //-1 w prev oznacza ze to pierwszy wierzcholek
@@ -30,7 +30,7 @@ namespace AllocationService
 
             var q = new Queue<int>();
 
-            var prev = new int[FlowGraph.VerticesCount];
+            var prev = new int[g.VerticesCount];
 
             q.Enqueue(start);
 
@@ -44,7 +44,7 @@ namespace AllocationService
             while (q.Count > 0)
             {
                 var s = q.Dequeue();
-                foreach (var e in FlowGraph.OutEdges(s))
+                foreach (var e in g.OutEdges(s))
                 {
                     if (prev[e.To] == -2)
                     {
@@ -62,17 +62,21 @@ namespace AllocationService
             //res graph trzyma aktualny przeplyw przez krawedz
             Graph resGraph = FlowGraph.IsolatedVerticesGraph();
 
-            for (int i = 0; i < resGraph.VerticesCount; i++)
+            for (int i = 0; i < FlowGraph.VerticesCount; i++)
             {
-                foreach (var e in resGraph.OutEdges(i))
+                foreach (var e in FlowGraph.OutEdges(i))
                 {
                     resGraph.AddEdge(e.From, e.To, 0);
                 }
             }
 
+            var ge = new GraphExport();
+
+            ge.Export(FlowGraph);
+
             //start v 0
             //finish v FlowGraph.VerticesCount - 1
-            var path = BFS(0, FlowGraph.VerticesCount - 1);
+            var path = BFS(0, FlowGraph.VerticesCount - 1, FlowGraph);
 
             while (path[FlowGraph.VerticesCount - 1] != -2)     //to znaczy ze nie ma sciezki
             {
@@ -83,7 +87,7 @@ namespace AllocationService
                 var tmp = FlowGraph.VerticesCount - 1;
 
                 //szukamy w sciezce ile tego przeplywu mozemy dodac
-                while (tmp != -1)   
+                while (path[tmp] != -1)   
                 {
                     df = Math.Min(df, FlowGraph.GetEdgeWeight(path[tmp], tmp) - resGraph.GetEdgeWeight(path[tmp], tmp));
                     tmp = path[tmp];
@@ -92,7 +96,7 @@ namespace AllocationService
                 tmp = FlowGraph.VerticesCount - 1;
 
                 //update przeplywow
-                while (tmp != -1)
+                while (path[tmp] != -1)
                 {
                     var w = resGraph.GetEdgeWeight(path[tmp], tmp);
                     resGraph.DelEdge(path[tmp], tmp);
@@ -100,7 +104,7 @@ namespace AllocationService
                     tmp = path[tmp];
                 }
 
-                path = BFS(0, FlowGraph.VerticesCount - 1);
+                path = BFS(0, FlowGraph.VerticesCount - 1, resGraph);
             }
 
             //narazie na cele testow samego pomyslu kozystamy z gotowego rozwiazania
