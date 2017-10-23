@@ -38,8 +38,6 @@ namespace Tests
             ge.Export(g);
 
             //assert
-
-
         }
     }
 }
