@@ -21,7 +21,7 @@ namespace AllocationService
             FlowGraph = g;
         }
 
-        public int[] BFS(int start, int finish, Graph g)
+        public int[] BFS(int start, int finish, Graph g = null)
         {
             //uwaga techniczna
             //-1 w prev oznacza ze to pierwszy wierzcholek
@@ -30,7 +30,7 @@ namespace AllocationService
 
             var q = new Queue<int>();
 
-            var prev = new int[g.VerticesCount];
+            var prev = new int[FlowGraph.VerticesCount];
 
             q.Enqueue(start);
 
@@ -44,12 +44,21 @@ namespace AllocationService
             while (q.Count > 0)
             {
                 var s = q.Dequeue();
-                foreach (var e in g.OutEdges(s))
+                foreach (var e in FlowGraph.OutEdges(s))
                 {
                     if (prev[e.To] == -2)
                     {
-                        prev[e.To] = e.From;
-                        q.Enqueue(e.To);
+                        //wariant gdzie nie przekazujemy drugiego grafu
+                        if (g != null && e.Weight - g.GetEdgeWeight(e.From, e.To) > 0)
+                        {
+                            prev[e.To] = e.From;
+                            q.Enqueue(e.To);
+                        }
+                        else if (g == null)
+                        {
+                            prev[e.To] = e.From;
+                            q.Enqueue(e.To);
+                        }
                     }
                 }
             }
@@ -69,10 +78,6 @@ namespace AllocationService
                     resGraph.AddEdge(e.From, e.To, 0);
                 }
             }
-
-            var ge = new GraphExport();
-
-            ge.Export(FlowGraph);
 
             //start v 0
             //finish v FlowGraph.VerticesCount - 1
@@ -105,6 +110,10 @@ namespace AllocationService
                 }
 
                 path = BFS(0, FlowGraph.VerticesCount - 1, resGraph);
+
+                var ge = new GraphExport();
+
+                ge.Export(resGraph);
             }
 
             //narazie na cele testow samego pomyslu kozystamy z gotowego rozwiazania

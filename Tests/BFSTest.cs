@@ -20,7 +20,7 @@ namespace Tests
 
             var test = new BestAllocationFinder(g);
             //act
-            var prev = test.BFS(0, 3, g);
+            var prev = test.BFS(0, 3);
 
             //assert
 
@@ -41,10 +41,38 @@ namespace Tests
             var test = new BestAllocationFinder(g);
 
             //act
-            var prev = test.BFS(0, 3, g);
+            var prev = test.BFS(0, 3);
 
             //assert
             prev.ShouldAllBeEquivalentTo(new int[] { -1, 0, 1, 2});
+        }
+
+        [Fact]
+        public void BFSSearchTest_CycleInGraph_TwoGraphs()
+        {
+            //arange
+            var g = new AdjacencyMatrixGraph(true, 4);
+
+            g.AddEdge(3, 0);
+            g.AddEdge(0, 1);
+            g.AddEdge(1, 2);
+            g.AddEdge(2, 3);
+
+            var g1 = new AdjacencyMatrixGraph(true, 4);
+
+            g1.AddEdge(3, 0, 0);
+            g1.AddEdge(0, 1, 0);
+            g1.AddEdge(1, 2, 0);
+            g1.AddEdge(2, 3, 0);
+
+
+            var test = new BestAllocationFinder(g);
+
+            //act
+            var prev = test.BFS(0, 3, g1);
+
+            //assert
+            prev.ShouldAllBeEquivalentTo(new int[] { -1, 0, 1, 2 });
         }
 
         [Fact]
@@ -76,7 +104,7 @@ namespace Tests
             var test = new BestAllocationFinder(g);
 
             ////act
-            var prev = test.BFS(0, 3, g);
+            var prev = test.BFS(0, 3);
 
             //assert
             prev.ShouldAllBeEquivalentTo(new int[] { -1, 0, 0, 0, 3, 2, 1, -2, 6, 6, 8 });
