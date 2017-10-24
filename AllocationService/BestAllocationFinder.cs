@@ -21,7 +21,7 @@ namespace AllocationService
             FlowGraph = g;
         }
 
-        public int[] BFS(int start, int finish, Graph g = null)
+        public int[] BFS(int start, int finish, Graph g)
         {
             //uwaga techniczna
             //-1 w prev oznacza ze to pierwszy wierzcholek
@@ -30,7 +30,7 @@ namespace AllocationService
 
             var q = new Queue<int>();
 
-            var prev = new int[FlowGraph.VerticesCount];
+            var prev = new int[g.VerticesCount];
 
             q.Enqueue(start);
 
@@ -44,21 +44,12 @@ namespace AllocationService
             while (q.Count > 0)
             {
                 var s = q.Dequeue();
-                foreach (var e in FlowGraph.OutEdges(s))
+                foreach (var e in g.OutEdges(s))
                 {
-                    if (prev[e.To] == -2)
+                    if (prev[e.To] == -2 && e.Weight > 0)
                     {
-                        //wariant gdzie nie przekazujemy drugiego grafu
-                        if (g != null && e.Weight - g.GetEdgeWeight(e.From, e.To) > 0)
-                        {
-                            prev[e.To] = e.From;
-                            q.Enqueue(e.To);
-                        }
-                        else if (g == null)
-                        {
-                            prev[e.To] = e.From;
-                            q.Enqueue(e.To);
-                        }
+                        prev[e.To] = e.From;
+                        q.Enqueue(e.To);
                     }
                 }
             }
@@ -69,57 +60,70 @@ namespace AllocationService
         public Graph CalculateMaxFlow()
         {
             //res graph trzyma aktualny przeplyw przez krawedz
-            Graph resGraph = FlowGraph.IsolatedVerticesGraph();
+            Graph residualGraph = FlowGraph.IsolatedVerticesGraph();
 
             for (int i = 0; i < FlowGraph.VerticesCount; i++)
             {
                 foreach (var e in FlowGraph.OutEdges(i))
                 {
-                    resGraph.AddEdge(e.From, e.To, 0);
+                    residualGraph.AddEdge(e.From, e.To, e.Weight);
+                    residualGraph.AddEdge(e.To, e.From, 0);
                 }
             }
 
             //start v 0
             //finish v FlowGraph.VerticesCount - 1
-            var path = BFS(0, FlowGraph.VerticesCount - 1, FlowGraph);
+            var path = BFS(0, residualGraph.VerticesCount - 1, residualGraph);
 
-            while (path[FlowGraph.VerticesCount - 1] != -2)     //to znaczy ze nie ma sciezki
+            //ge.Export(residualGraph);
+
+            while (path[residualGraph.VerticesCount - 1] != -2)     //to znaczy ze nie ma sciezki
             {
-                //we found augmenting path
-
-                var df = double.MaxValue;
-
-                var tmp = FlowGraph.VerticesCount - 1;
-
-                //szukamy w sciezce ile tego przeplywu mozemy dodac
-                while (path[tmp] != -1)   
-                {
-                    df = Math.Min(df, FlowGraph.GetEdgeWeight(path[tmp], tmp) - resGraph.GetEdgeWeight(path[tmp], tmp));
-                    tmp = path[tmp];
-                }
-
-                tmp = FlowGraph.VerticesCount - 1;
+                var df = 1; //zawsze szukamy tylko przypisania jednego eksperta do projektu
+                
+                var tmp = residualGraph.VerticesCount - 1;
 
                 //update przeplywow
                 while (path[tmp] != -1)
                 {
-                    var w = resGraph.GetEdgeWeight(path[tmp], tmp);
-                    resGraph.DelEdge(path[tmp], tmp);
-                    resGraph.AddEdge(path[tmp], tmp, df + w);
+                    var w = residualGraph.GetEdgeWeight(path[tmp], tmp);
+                    residualGraph.DelEdge(path[tmp], tmp);
+                    residualGraph.AddEdge(path[tmp], tmp, w - df);
+                    w = residualGraph.GetEdgeWeight(tmp, path[tmp]);
+                    residualGraph.DelEdge(tmp, path[tmp]);
+                    residualGraph.AddEdge(tmp, path[tmp], w + df);
                     tmp = path[tmp];
                 }
 
-                path = BFS(0, FlowGraph.VerticesCount - 1, resGraph);
-
-                var ge = new GraphExport();
-
-                ge.Export(resGraph);
+                path = BFS(0, residualGraph.VerticesCount - 1, residualGraph);
             }
 
             //narazie na cele testow samego pomyslu kozystamy z gotowego rozwiazania
             //FlowGraph.FordFulkersonDinicMaxFlow(0, FlowGraph.VerticesCount - 1, out resGraph, MaxFlowGraphExtender.MaxFlowPath);
 
-            return resGraph;
+            var result = residualGraphToMaxFlow(residualGraph);
+
+            return result;
+        }
+
+        private Graph residualGraphToMaxFlow(Graph residualGraph)
+        {
+            var g = residualGraph.IsolatedVerticesGraph();
+
+            for (int i = 0; i < residualGraph.VerticesCount; i++)
+            {
+                foreach (var e in residualGraph.OutEdges(i))
+                {
+                    if (e.From < e.To)
+                    {
+                        var t = FlowGraph.GetEdgeWeight(e.From, e.To) - e.Weight;
+                        if(t > 0)
+                            g.AddEdge(e.From, e.To, t);
+                    }
+                }
+            }
+
+            return g;
         }
 
         public AllocationResult CalculateBestAllocation()

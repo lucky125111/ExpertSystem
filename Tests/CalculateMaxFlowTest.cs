@@ -19,7 +19,7 @@ namespace Tests
             g.AddEdge(1, 2);
             g.AddEdge(2, 3);
             g.AddEdge(3, 4);
-
+            
             //act
             var test = new BestAllocationFinder(g);
             //act
@@ -59,11 +59,16 @@ namespace Tests
             g.AddEdge(7, 10);
 
             //act
-            var ge = new GraphExport();
-
-            ge.Export(g);
+            var test = new BestAllocationFinder(g);
+            //act
+            var res = test.CalculateMaxFlow();
 
             //assert
+            //prev.ShouldAllBeEquivalentTo(new int[] { -1, 0, 1, 0 });
+            var ge = new GraphExport();
+
+            ge.Export(res);
+
         }
     }
 }
