@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Xml.Serialization;
 
 namespace AllocationService
 {
@@ -15,7 +19,7 @@ namespace AllocationService
         {
             return expoertCount - ExpertToProjects.Count;
         }
-
+        
         public override string ToString()
         {
             return string.Join(System.Environment.NewLine, ExpertToProjects);

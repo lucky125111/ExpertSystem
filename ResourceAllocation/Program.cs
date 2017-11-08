@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using AllocationService;
 
 namespace ResourceAllocation
@@ -7,17 +8,27 @@ namespace ResourceAllocation
     {
         static void Main(string[] args)
         {
-            var path = "Dummy.txt";
+            string path = "Dummy.txt";
+            var silet = false;
 
             if (args != null)
-                path = args[0];
+            {
+                if (args.Length > 1 && args[1] == "-s")
+                {
+                    Console.SetOut(new StreamWriter(Stream.Null));
+                    silet = true;
+                }
+                if (args.Length > 0)
+                    path = args[0];
+                
+            }
 
             Console.WriteLine("program started");
 
-            var f = new FileReader(path);
-
             try
             {
+                var f = new FileReader(path);
+
                 var epi = f.ReadFile();
 
                 var baf = new BestAllocationFinder(epi);
@@ -26,8 +37,11 @@ namespace ResourceAllocation
 
                 var res = resGraph.GraphToAllocationResult(epi.ProjectCount, epi.SkillCount, epi.ExpertCount);
 
-                res.GetResourceWasted(baf.ExpertProjectInformation.ExpertCount);
+                var waste = res.GetResourceWasted(baf.ExpertProjectInformation.ExpertCount);
 
+                f.SaveResult(res, waste);
+
+                Console.WriteLine("zmarnowane: " + waste);
                 Console.WriteLine("Dopasowanie:");
                 Console.WriteLine(res);
             }
@@ -40,8 +54,10 @@ namespace ResourceAllocation
                 Console.WriteLine("Nienznany blad");
             }
 
-            Console.WriteLine("Nacisnij klawisz");
-            Console.ReadKey();
+            Console.Write("Nacisnij klawisz: ");
+
+            if(!silet)
+                Console.ReadKey();
         }
     }
 }
