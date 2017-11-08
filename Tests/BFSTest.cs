@@ -13,10 +13,10 @@ namespace Tests
             //arange
             var g = new AdjacencyMatrixGraph(true, 4);
 
-            g.AddEdge(0,3,0);
-            g.AddEdge(0,1,0);
-            g.AddEdge(1,2,0);
-            g.AddEdge(2,3,0);
+            g.AddEdge(0,3,1);
+            g.AddEdge(0,1,1);
+            g.AddEdge(1,2,1);
+            g.AddEdge(2,3,1);
 
             var test = new BestAllocationFinder(g);
             //act
