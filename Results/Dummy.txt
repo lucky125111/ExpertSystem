@@ -1,0 +1,2 @@
+eksperci nie przypisani: 0
+ExpertId: 0,ProjectId: 0,Skill used: 0
