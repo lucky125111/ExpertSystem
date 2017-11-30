@@ -34,7 +34,7 @@ namespace AllocationService
             {
                 for (int j = 0; j < expertProjectInformation.SkillCount; j++)
                 {
-                    if (expertProjectInformation.ProjectRequirements[i][j] != 0)
+                    if (expertProjectInformation.ExpertSkills[i][j] != 0)
                         g.AddEdge(expertProjectInformation.ProjectCount + 1 + j,
                             expertProjectInformation.ProjectCount + expertProjectInformation.SkillCount + 1 + i, expertProjectInformation.ExpertSkills[i][j]);
                 }

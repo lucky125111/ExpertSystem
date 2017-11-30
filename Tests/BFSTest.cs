@@ -95,9 +95,6 @@ namespace Tests
             g.AddEdge(5, 4);
             g.AddEdge(4, 3);
 
-            //g.AddEdge(8, 10);
-            //g.AddEdge(9, 10);
-
             var test = new BestAllocationFinder(g);
 
             ////act

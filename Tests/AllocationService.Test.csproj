@@ -76,6 +76,7 @@
     <Compile Include="EndToEndTests.cs" />
     <Compile Include="FileReaderTest.cs" />
     <Compile Include="GraphCreatorTest.cs" />
+    <Compile Include="PerformanceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
