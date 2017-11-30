@@ -8,7 +8,7 @@ namespace ResourceAllocation
     {
         static void Main(string[] args)
         {
-            string path = "Dummy.txt";
+            string path = "";
             var silet = false;
 
             if (args != null)
@@ -45,7 +45,7 @@ namespace ResourceAllocation
                 Console.WriteLine("Dopasowanie:");
                 Console.WriteLine(res);
             }
-            catch (System.IO.FileNotFoundException)
+            catch (FileNotFoundException)
             {
                 Console.WriteLine("Plik nie jest znaleziony, upewnij sie ze jest w folderze TestCases/");
             }
